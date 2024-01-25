@@ -24,9 +24,9 @@ def create_parser(worker='janome', parts_of_speech=['名詞'], stop_words=[]):
     def _mecab(text):
         """ mecab parser
         """
-        tagger = MeCab.Tagger()
-        # /usr/local/lib/mecab/dic/mecab-ipadic-neologd/
+        # tagger = MeCab.Tagger()
         # tagger = MeCab.Tagger('-d /usr/local/lib/mecab/dic/mecab-ipadic-neologd')
+        tagger = MeCab.Tagger('-d /usr/lib/x86_64-linux-gnu/mecab/dic/mecab-ipadic-neologd')
         tagger.parse('')
         
         node = tagger.parseToNode(text)
@@ -35,7 +35,7 @@ def create_parser(worker='janome', parts_of_speech=['名詞'], stop_words=[]):
             word = node.surface
             if node.feature.split(",")[0] == u"動詞": 
                  word = node.feature.split(",")[6]
-                    
+            
             hinshi = node.feature.split(",")[0]
             if hinshi in parts_of_speech and word not in stop_words:
                 rs += [word]
