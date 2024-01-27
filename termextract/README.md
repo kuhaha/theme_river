@@ -13,11 +13,12 @@ cf. https://github.com/kanjirz50/termextract
 
 ## 複合語重要度スコア`LR`
 複合名詞$`CN`$が単名詞$`N_1, N_2,\cdots, N_L`$順に接続した文字列とする。$`CN`$の重要度スコア$`LR`$は次のように求められる。
-```math
-LR(CN)=\left( \Pi_{k=1}^L (LN(N_i)+1)(RN(N_i)+1)\right)^{\frac{1}{2L}}
-```
+
+$$LR(CN)=\left( \Pi_{i=1}^L (LN(N_i)+1)(RN(N_i)+1)\right)^{\frac{1}{2L}}$$
+
 ## 出現頻度を考慮した複合語重要度スコア`FLR`
 複合名詞$`CN`$が単名詞$`N_1, N_2,\cdots, N_L`$順に接続した文字列とする。出現頻度$`f(CN)`$を考慮した$`CN`$の重要度スコア$`FLR`$は次のように求められる。
+
 ```math
 FLR(CN)=f(CN) \times LR(CN)
 ```
