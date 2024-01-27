@@ -1,7 +1,7 @@
 # 専門用語（キーワード）自動抽出Pythonモジュールtermextract
-Concise Implementation of TermExtract
+(Original Implementation of TermExtract)
 
-cf. https://github.com/kanjirz50/termextract
+cf. http://gensen.dl.itc.u-tokyo.ac.jp/pytermextract/
 
 ## 左右名詞の接続頻度
 
