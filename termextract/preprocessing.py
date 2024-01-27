@@ -6,6 +6,18 @@ from collections import namedtuple
 
 
 class MeCabTokenizer:
+    """UniDic品詞体系 cf. https://hayashibe.jp/tr/mecab/dictionary/unidic/pos
+    surface,  pos,  pos_s1, pos_s2
+    '知能', '名詞', '普通名詞', '一般'   
+    '直感', '名詞', '普通名詞', 'サ変可能'
+    '多少', '名詞', '普通名詞', '副詞可能'
+    '安部', '名詞', '固有名詞', '人名'
+    'ソフト', '名詞', '普通名詞', '形状詞可能
+    '的', '接尾辞', '形状詞的', '*'
+    '用', '接尾辞', '名詞的', '一般'
+    '曖昧', '形状詞', '一般', '*'
+    """
+
     Morpheme = namedtuple("Morpheme", "surface pos pos_s1 pos_s2")
 
     def __init__(self, **kwargs):
@@ -19,24 +31,10 @@ class MeCabTokenizer:
             yield self.Morpheme(node.surface, *node.feature.split(",")[:3])
             node = node.next
 
-"""
-surface='知能', pos='名詞', pos_s1='普通名詞', pos_s2='一般'   
-surface='会議', pos='名詞', pos_s1='普通名詞', pos_s2='サ変可能'
-surface='多少', pos='名詞', pos_s1='普通名詞', pos_s2='副詞可能'
-surface='安部', pos='名詞', pos_s1='固有名詞', pos_s2='人名'
-surface='ソフト', pos='名詞', pos_s1='普通名詞', pos_s2='形状詞可能
-surface='直感', pos='名詞', pos_s1='普通名詞', pos_s2='サ変可能'
-surface='的', pos='接尾辞', pos_s1='形状詞的', pos_s2='*'
-surface='用', pos='接尾辞', pos_s1='名詞的', pos_s2='一般'
-surface='曖昧', pos='形状詞', pos_s1='一般', pos_s2='*'
-
-"""
 def filter_noun(n):
     if re.match(r"[#!「」\(\)\[\]]", n.surface):
         return False
-    if n.pos == "名詞" and n.pos_s1 == "普通名詞":
-        return True
-    if n.pos=="名詞" and n.pos_s1=="固有名詞":
+    if n.pos == "名詞" and n.pos_s1 in ["普通名詞", "固有名詞"]:
         return True
     if n.pos == "接尾辞" and n.pos_s1 in ["名詞的","形状詞的"] :
         return True
