@@ -1,5 +1,6 @@
 import itertools as it
 import re
+import os
 import MeCab
 
 from collections import namedtuple
@@ -21,7 +22,7 @@ class MeCabTokenizer:
     Morpheme = namedtuple("Morpheme", "surface pos pos_s1 pos_s2")
 
     def __init__(self, **kwargs):
-        self.tagger = MeCab.Tagger(**kwargs)
+        self.tagger = MeCab.Tagger(**kwargs)          
         self.tagger.parse("Initialize")
 
     def iter_token(self, text):

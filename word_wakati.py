@@ -7,8 +7,8 @@ import nltk
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 
-nltk.download("wordnet")
-nltk.download("omw-1.4")
+# nltk.download("wordnet")
+# nltk.download("omw-1.4")
 
 def neologd():
     dicdir = os.popen("mecab-config --dicdir").read().strip()
@@ -88,7 +88,7 @@ def create_parser(worker='janome', parts_of_speech=['名詞'], stop_words=[]):
     
     if worker == 'mecab':
         return _mecab
-    elif worker == 'english':
-        return _english
+    # elif worker == 'english':
+    #     return _english
     else:
         return _janome
