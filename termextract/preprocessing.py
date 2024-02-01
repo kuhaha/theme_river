@@ -39,12 +39,12 @@ class MeCabTokenizer:
 
 def filter_noun(n, dic='ipadic'):
     unidic_pos = {
-        "名詞"  : ["普通名詞", "固有名詞"],
+        "名詞"  : ["普通名詞", "固有名詞", "数詞"],
         "接尾辞": ["名詞的","形状詞的"],
         "形状詞": ["一般"]
     }
     ipadic_pos = {
-        "名詞"  : ["一般", "固有名詞", "サ変接続", "ナイ形容詞幹", "接尾"],
+        "名詞"  : ["一般", "固有名詞", "サ変接続", "ナイ形容詞幹", "数","接尾"],
         "形容詞": ["自立"]
     }
     comp_pos = ipadic_pos if dic=='ipadic' else unidic_pos 
@@ -62,7 +62,7 @@ def simple_filter_noun(n):
 
 def extract_nouns(tokens, f=filter_noun, stopwords=[], n=1):
     groups = [morphemes_to_surface(g, stopwords) for k, g in it.groupby(tokens, f) if k]
-    return [group for group in groups if len(group)>=n]
+    return [group for group in groups if len(group)>=n and group[-1] not in ['的']]
 
 def morphemes_to_surface(morphemes, stopwords):
     return [m.surface for m in morphemes if m.surface not in stopwords]
