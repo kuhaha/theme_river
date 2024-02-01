@@ -1,8 +1,13 @@
 import numpy as np
 
 from collections import defaultdict
-
-
+"""
+LR: Left/Right Collocation
+PP: PerPlexity
+cn: compound noun
+ln, rn: left/right collocation frequency
+ldn, rdn: left/right collocation varieties　
+"""
 class LRValue:
     def __init__(self):
         self.__init_stat()
@@ -31,8 +36,10 @@ class LRValue:
                 self.update(bigram)
         return self
 
-    def transform(self, compound_nouns):
-        return {" ".join(cn): self.FLR(cn) for cn in compound_nouns}
+    def transform(self, compound_nouns, mode=1):
+        # return {" ".join(cn): self.FLR(cn) for cn in compound_nouns}
+        f = lambda cn: self.FLR(cn) if mode==1 else self.LR(cn) if mode==2 else self.PP(cn)
+        return {" ".join(cn): f(cn) for cn in compound_nouns}
 
     def fit_transform(self, compound_nouns):
         return self.fit(compound_nouns).transform(compound_nouns)
@@ -44,6 +51,10 @@ class LRValue:
         a = np.array([(self.ln(n) + 1) * (self.rn(n) + 1) for n in compound_noun])
         return np.power(a.cumprod()[-1], 1/(2 * len(compound_noun)))
 
+   def PP(self, compound_noun):
+        a = np.array([(self.ldn(n) + 1) * (self.rdn(n) + 1) for n in compound_noun])
+        return np.power(a.cumprod()[-1], 1/(2 * len(compound_noun)))
+           
     def update(self, bigram):
         self._ldn[bigram[1]][bigram[0]] += 1
         self._rdn[bigram[0]][bigram[1]] += 1
