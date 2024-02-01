@@ -16,6 +16,9 @@ class LRValue:
     def compound_noun(self):
         return list(self._compound_noun.keys())
 
+    def compound_stat(self):
+        return self._compound_noun
+
     @staticmethod
     def ngram(words, n=2):
         return list(zip(*(words[i:] for i in range(n))))
@@ -56,3 +59,4 @@ class LRValue:
 
     def rdn(self, word):
         return len(self._rdn[word])
+        
