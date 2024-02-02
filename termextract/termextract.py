@@ -18,10 +18,7 @@ class LRValue:
         self._compound_noun = defaultdict(int)
 
     @property
-    def compound_noun(self):
-        return list(self._compound_noun.keys())
-
-    def compound_stat(self):
+    def compound_noun(self):       
         return self._compound_noun
 
     @staticmethod
@@ -41,8 +38,8 @@ class LRValue:
         f = lambda cn: self.FLR(cn) if mode==1 else self.LR(cn) if mode==2 else self.PP(cn)
         return {" ".join(cn): f(cn) for cn in compound_nouns}
 
-    def fit_transform(self, compound_nouns):
-        return self.fit(compound_nouns).transform(compound_nouns)
+    def fit_transform(self, compound_nouns, mode=1):
+        return self.fit(compound_nouns).transform(compound_nouns, mode)
 
     def FLR(self, compound_noun):
         return self._compound_noun[" ".join(compound_noun)] * self.LR(compound_noun)
@@ -51,7 +48,7 @@ class LRValue:
         a = np.array([(self.ln(n) + 1) * (self.rn(n) + 1) for n in compound_noun])
         return np.power(a.cumprod()[-1], 1/(2 * len(compound_noun)))
 
-   def PP(self, compound_noun):
+    def PP(self, compound_noun):
         a = np.array([(self.ldn(n) + 1) * (self.rdn(n) + 1) for n in compound_noun])
         return np.power(a.cumprod()[-1], 1/(2 * len(compound_noun)))
            

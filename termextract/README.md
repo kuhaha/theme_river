@@ -1,6 +1,5 @@
 # 専門用語自動抽出Pythonモジュールtermextract
-Concise Implementation of TermExtract
-
+A More Modern & Smart Implementation of TermExtract
 cf. https://github.com/kanjirz50/termextract
 
 ## 左右名詞の接続頻度
@@ -21,3 +20,19 @@ $$LR(CN)=\left( \Pi_{i=1}^L (LN(N_i)+1)(RN(N_i)+1)\right)^{\frac{1}{2L}}$$
 複合名詞$`CN`$が単名詞$`N_1, N_2,\cdots, N_L`$順に接続した文字列とする。出現頻度$`f(CN)`$を考慮した$`CN`$の重要度スコア$`FLR`$は次のように求められる。
 
 $$FLR(CN)=f(CN) \times LR(CN)$$
+
+# 品詞体系
+## UniDic品詞体系 
+cf. https://hayashibe.jp/tr/mecab/dictionary/unidic/pos
+|  surface |   pos  |  pos_s1 |  pos_s2  |
+|----------|--------|---------|----------|
+| '知能'   | '名詞'  |'普通名詞' |'一般'   |
+| '直感'   | '名詞'  |'普通名詞' |'サ変可能'|
+| '多少'   | '名詞'  |'普通名詞' |'副詞可能'|
+| '安部'   | '名詞'  |'固有名詞' |'人名'    |
+| 'ソフト' | '名詞'  |'普通名詞' |'形状詞可能|
+| '的'     | '接尾辞'|'形状詞的' |'*'      |
+| '用'     | '接尾辞'|'名詞的'   |'一般'   |
+| '曖昧'   | '形状詞'| '一般'    |'*'      |
+
+## IPADic品詞体系
