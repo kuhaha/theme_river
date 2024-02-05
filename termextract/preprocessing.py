@@ -15,7 +15,8 @@ class MeCabTokenizer:
     IPADIC_POS = {
         "名詞"  : ["一般", "固有名詞", "サ変接続", "ナイ形容詞幹","副詞可能 ","形容動詞語幹","数","接尾"],
         "接頭詞" : ["名詞接続","数接続"],
-        "形容詞": ["自立"]
+        "記号":["アルファベット"],
+        "形容詞": ["自立"],
     }
     UNIDIC_POS = {
         "名詞"  : ["普通名詞", "固有名詞", "数詞"],
@@ -47,6 +48,8 @@ class MeCabTokenizer:
         
         if re.match(r"[#!「」\(\)\[\]]", n.surface):
             return False
+        if n.surface=='-':
+            return True
         if n.pos in comp_pos and  n.pos_s1 in comp_pos[n.pos]:
             return True
         return False
