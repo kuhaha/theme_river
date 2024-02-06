@@ -48,8 +48,6 @@ class MeCabTokenizer:
         
         if re.match(r"[#!「」\(\)\[\]]", n.surface):
             return False
-        if n.surface=='-':
-            return True
         if n.pos in comp_pos and  n.pos_s1 in comp_pos[n.pos]:
             return True
         return False
