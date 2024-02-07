@@ -1,0 +1,8 @@
+以下のキーの組合せをすると、Jupyterノートブックのメニュではなく、
+Windows メニュが表示され、画像が保存できるようになります。
+
+「Crtl」+「Shift」＋右クリック
+
+
+cf. https://stackoverflow.com/questions/32285163/enabling-right-click-copy-for-ipython-plots
+If you control-shift right click, it'll return to the standard Chrome context menu instead of the iPython one.
